@@ -70,6 +70,14 @@ func SelectfieldForm() templ.Component {
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = input.C(input.D{
+			Name:  "Label",
+			Label: "Label",
+			Value: "Label",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = input.C(input.D{
 			Name:  "Selected",
 			Label: "Selected",
 		}).Render(ctx, templ_7745c5c3_Buffer)

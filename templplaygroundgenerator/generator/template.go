@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	"github.com/jfbus/templ-components/cmd/templplayground/views/components"
+	"github.com/jfbus/templ-components-playground/templplayground/views/components"
 {{- range . }}
 	"{{.ImportPath}}"
 {{- end }}
@@ -36,7 +36,7 @@ package views
 import (
 	"github.com/jfbus/templ-components/components/accordion"
 	"github.com/jfbus/templ-components/components/accordion/element"
-	"github.com/jfbus/templ-components/cmd/templplayground/views/components"
+	"github.com/jfbus/templ-components-playground/templplayground/views/components"
 )
 
 templ Main() {

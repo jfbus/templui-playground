@@ -11,7 +11,7 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"github.com/jfbus/templ-components/cmd/templplayground/views/components"
+	"github.com/jfbus/templ-components-playground/templplayground/views/components"
 	"github.com/jfbus/templ-components/components/accordion"
 	"github.com/jfbus/templ-components/components/accordion/element"
 )
