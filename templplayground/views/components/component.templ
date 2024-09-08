@@ -1,0 +1,26 @@
+package components
+
+import "github.com/jfbus/templ-components/components/button"
+
+templ ComponentViewer(c Component) {
+	<div class="grid grid-cols-2 gap-4">
+		if c.Form != nil {
+			<form
+				class="space-y-2"
+				hx-post={ "/view/" + c.ID }
+				hx-target={ "#" + c.ID + "Viewer" }
+			>
+				@c.Form
+				@button.C(button.D{Type: button.Submit, Label: "Preview"})
+			</form>
+		}
+		<div>
+			<h3 class="font-medium text-center mb-2">
+				Preview
+			</h3>
+			<div id={ c.ID + "Viewer" } class="border p-5 min-w-1/2 min-h-1/2 mx-auto rounded border-gray-100">
+				@c.Viewer
+			</div>
+		</div>
+	</div>
+}

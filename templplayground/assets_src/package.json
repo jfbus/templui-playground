@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "watch-css": "npx tailwindcss -i base.css -o ../assets/css/main.css --watch",
+    "build": "npx tailwindcss -i base.css -o ../assets/css/main.css --minify && webpack"
+  },
+  "dependencies": {
+    "alpinejs": "^3.14.1",
+    "flowbite": "^2.5.1",
+    "htmx.org": "^2.0.2"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.10"
+  }
+}
