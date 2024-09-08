@@ -14,6 +14,9 @@ import (
 	"github.com/jfbus/templ-components/components/checkbox"
 	"github.com/jfbus/templ-components/components/input"
 	"github.com/jfbus/templ-components/components/label"
+	"github.com/jfbus/templ-components/components/selectfield"
+	"github.com/jfbus/templ-components/components/selectfield/option"
+	"strconv"
 )
 
 func LabelViewer(def label.D) templ.Component {
@@ -63,6 +66,30 @@ func LabelForm() templ.Component {
 		templ_7745c5c3_Err = input.C(input.D{
 			Name:  "InputID",
 			Label: "InputID",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = selectfield.C(selectfield.D{
+			Name:  "Style",
+			Label: "Style",
+			Options: []option.D{
+				{
+					Label: "Select a value",
+				},
+				{
+					Label: "label.StyleInline",
+					Value: strconv.Itoa(int(label.StyleInline)),
+				},
+			},
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = input.C(input.D{
+			Name:  "Label",
+			Label: "Label",
+			Value: "Label",
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

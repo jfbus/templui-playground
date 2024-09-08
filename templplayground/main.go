@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/jfbus/templ-components/cmd/templplayground/assets"
-	"github.com/jfbus/templ-components/cmd/templplayground/handlers"
+	"github.com/jfbus/templ-components-playground/templplayground/assets"
+	"github.com/jfbus/templ-components-playground/templplayground/handlers"
 	"github.com/labstack/echo/v4"
 )
 

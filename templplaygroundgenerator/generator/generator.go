@@ -53,27 +53,28 @@ func (g *Generator) parseType(pkg *packages.Package, decl *ast.GenDecl) {
 		typ := spec.(*ast.TypeSpec)
 		switch typ.Name.Name {
 		case "D":
-			st := typ.Type.(*ast.StructType)
-			def := g.definitions[pkg.Name]
-			for _, field := range st.Fields.List {
-				ft := parseType(pkg, field.Type)
-				nf := Field{
-					Name: field.Names[0].Name,
-					Type: ft,
+			if st, ok := typ.Type.(*ast.StructType); ok {
+				def := g.definitions[pkg.Name]
+				for _, field := range st.Fields.List {
+					ft := parseType(pkg, field.Type)
+					nf := Field{
+						Name: field.Names[0].Name,
+						Type: ft,
+					}
+					g.parseFieldComment(pkg, field.Doc, &nf)
+					switch nf.Name {
+					case "Label", "Value", "Placeholder":
+						nf.Default = `"` + nf.Name + `"`
+					case "ID":
+						nf.Default = pkg.Name
+						continue
+					}
+					def.Fields = append(def.Fields, nf)
 				}
-				g.parseFieldComment(pkg, field.Doc, &nf)
-				switch nf.Name {
-				case "Label", "Value", "Placeholder":
-					nf.Default = `"` + nf.Name + `"`
-				case "ID":
-					nf.Default = pkg.Name
-					continue
-				}
-				def.Fields = append(def.Fields, nf)
+				g.definitions[pkg.Name] = def
+				t := UserType{Import: pkg.PkgPath, Name: typ.Name.Name, Pkg: pkg.Name}
+				g.types[t.String()] = t
 			}
-			g.definitions[pkg.Name] = def
-			t := UserType{Import: pkg.PkgPath, Name: typ.Name.Name, Pkg: pkg.Name}
-			g.types[t.String()] = t
 		default:
 			tt := parseType(pkg, typ.Type)
 			t := UserType{Import: pkg.PkgPath, Name: typ.Name.Name, Pkg: pkg.Name, ParentType: tt}
@@ -252,7 +253,7 @@ func (g *Generator) fixComponentFields() {
 			if len(field.Values) == 0 {
 				field.Values = g.DefaultChoices(field.Type, pkg)
 			}
-			field.Editable = field.Type.BaseType() == Bool || field.Type.BaseType() == String || len(field.Values) > 0
+			field.Editable = field.Name == "Label" || field.Type.BaseType() == Bool || field.Type.BaseType() == String || len(field.Values) > 0
 			fields = append(fields, field)
 		}
 		if len(fields) == 0 {

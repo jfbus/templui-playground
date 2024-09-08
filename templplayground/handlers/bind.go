@@ -31,6 +31,9 @@ func Bind(r *http.Request, obj any) error {
 				return fmt.Errorf("%s: cannot convert %w", name, err)
 			}
 			field.SetInt(int64(intValue))
+		case reflect.Interface:
+			vval := reflect.ValueOf(value)
+			field.Set(vval)
 		}
 	}
 	return nil

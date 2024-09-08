@@ -162,7 +162,7 @@ func (f *Field) InputType() string {
 	case f.Type.BaseType() == String:
 		return Input
 	}
-	return None
+	return Input
 }
 
 func (f *Field) ImportPaths() []string {
