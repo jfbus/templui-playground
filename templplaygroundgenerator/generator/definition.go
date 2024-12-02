@@ -142,6 +142,7 @@ type Field struct {
 	ImportPath []string
 	Default    string
 	Editable   bool
+	Ignore     bool
 }
 
 const (
@@ -169,7 +170,7 @@ func (f *Field) ImportPaths() []string {
 	var ips []string
 	if f.Editable {
 		for _, ip := range f.Type.ImportPath() {
-			if ip != "" && ip != "github.com/jfbus/templ-components/components/style" {
+			if ip != "" && ip != "github.com/jfbus/templui/components/style" {
 				ips = append(ips, ip)
 			}
 		}
@@ -187,16 +188,16 @@ func (f *Field) ImportPaths() []string {
 	switch f.InputType() {
 	case Select:
 		ips = append(ips,
-			"github.com/jfbus/templ-components/components/selectfield",
-			"github.com/jfbus/templ-components/components/selectfield/option",
+			"github.com/jfbus/templui/components/selectfield",
+			"github.com/jfbus/templui/components/selectfield/option",
 		)
 	case Input:
 		ips = append(ips,
-			"github.com/jfbus/templ-components/components/input",
+			"github.com/jfbus/templui/components/input",
 		)
 	case Checkbox:
 		ips = append(ips,
-			"github.com/jfbus/templ-components/components/checkbox",
+			"github.com/jfbus/templui/components/checkbox",
 		)
 	}
 

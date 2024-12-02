@@ -6,8 +6,10 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"text/template"
+	"unicode"
 
 	"golang.org/x/tools/go/packages"
 	"maps"
@@ -31,12 +33,34 @@ func NewGenerator() *Generator {
 		imports:     map[string]string{},
 	}
 }
+
+func (g *Generator) ImportPaths() []string {
+	var ips []string
+	for _, c := range g.components {
+		for _, ip := range c.ImportPaths() {
+			if !slices.Contains(ips, ip) {
+				ips = append(ips, ip)
+			}
+		}
+	}
+	return ips
+}
+
+func (g *Generator) Components() []Component {
+	var cs []Component
+	for _, c := range g.components {
+		cs = append(cs, c)
+	}
+	sort.Slice(cs, func(i, j int) bool { return cs[i].Name < cs[j].Name })
+	return cs
+}
+
 func (g *Generator) Parse() {
 	cfg := &packages.Config{
 		Mode:  packages.NeedName | packages.NeedTypes | packages.NeedTypesInfo | packages.NeedSyntax,
 		Tests: true,
 	}
-	pkgs, err := packages.Load(cfg, "github.com/jfbus/templ-components/components/...")
+	pkgs, err := packages.Load(cfg, "github.com/jfbus/templui/components/...")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -61,13 +85,21 @@ func (g *Generator) parseType(pkg *packages.Package, decl *ast.GenDecl) {
 						Name: field.Names[0].Name,
 						Type: ft,
 					}
-					g.parseFieldComment(pkg, field.Doc, &nf)
-					switch nf.Name {
-					case "Label", "Value", "Placeholder":
-						nf.Default = `"` + nf.Name + `"`
-					case "ID":
-						nf.Default = pkg.Name
+					if !unicode.IsUpper(rune(nf.Name[0])) {
 						continue
+					}
+					g.parseFieldComment(pkg, field.Doc, &nf)
+					if nf.Default == "" {
+						switch nf.Name {
+						case "Name":
+							nf.Default = `"` + pkg.Name + `"`
+						case "Label", "Value", "Placeholder", "Title":
+							nf.Default = `"` + nf.Name + `"`
+						case "Content":
+							nf.Default = `"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus."`
+						case "ID":
+							nf.Default = `"` + pkg.Name + `"`
+						}
 					}
 					def.Fields = append(def.Fields, nf)
 				}
@@ -116,6 +148,8 @@ func (g *Generator) parseFieldComment(pkg *packages.Package, doc *ast.CommentGro
 	for _, c := range doc.List {
 		comment := c.Text
 		switch {
+		case comment == "//playground:ignore":
+			f.Ignore = true
 		case strings.HasPrefix(comment, "//playground:values:"):
 			parts := strings.Split(strings.TrimPrefix(comment, "//playground:values:"), ",")
 			lst := make([]Choice, 0, len(parts))
@@ -154,14 +188,15 @@ func (g *Generator) parseConst(pkg *packages.Package, decl *ast.GenDecl) {
 			continue
 		}
 		g.choices[tname.String()] = append(g.choices[tname.String()], Choice{
-			Package: pkg.Name,
-			Name:    typ.Names[0].Name,
+			ImportPath: pkg.PkgPath,
+			Package:    pkg.Name,
+			Name:       typ.Names[0].Name,
 		})
 	}
 }
 
 func (g *Generator) parseFile(pkg *packages.Package, file *ast.File) {
-	if strings.Contains(strings.TrimPrefix(pkg.PkgPath, "github.com/jfbus/templ-components/components/"), "/") {
+	if strings.Contains(strings.TrimPrefix(pkg.PkgPath, "github.com/jfbus/templui/components/"), "/") {
 		return
 	}
 	g.imports[pkg.Name] = pkg.PkgPath
@@ -178,11 +213,28 @@ func (g *Generator) parseFile(pkg *packages.Package, file *ast.File) {
 			if decl.Name.Name != "C" {
 				continue
 			}
-			g.components[pkg.Name] = Component{
+			c := Component{
 				Name:       strings.ToTitle(pkg.Name[:1]) + pkg.Name[1:],
 				Package:    pkg.Name,
 				ImportPath: pkg.PkgPath,
 			}
+			g.parseTypeComment(pkg, decl.Doc, &c)
+			if !c.Ignore {
+				g.components[pkg.Name] = c
+			}
+		}
+	}
+}
+
+func (g *Generator) parseTypeComment(pkg *packages.Package, doc *ast.CommentGroup, f *Component) {
+	if doc == nil || len(doc.List) == 0 {
+		return
+	}
+	for _, c := range doc.List {
+		comment := c.Text
+		switch {
+		case comment == "//playground:ignore":
+			f.Ignore = true
 		}
 	}
 }
@@ -253,7 +305,8 @@ func (g *Generator) fixComponentFields() {
 			if len(field.Values) == 0 {
 				field.Values = g.DefaultChoices(field.Type, pkg)
 			}
-			field.Editable = field.Name == "Label" || field.Type.BaseType() == Bool || field.Type.BaseType() == String || len(field.Values) > 0
+			field.Editable = !field.Ignore &&
+				(field.Name == "Label" || field.Type.BaseType() == Bool || field.Type.BaseType() == String || len(field.Values) > 0)
 			fields = append(fields, field)
 		}
 		if len(fields) == 0 {
@@ -279,22 +332,22 @@ func (g *Generator) Generate() error {
 			return err
 		}
 		defer fd.Close()
-		err = ht.Execute(fd, g.components)
+		err = ht.Execute(fd, g)
 		if err != nil {
 			return err
 		}
 	}
 	{
-		mt, err := template.New("main").Parse(mainTemplate)
+		mt, err := template.New("main").Parse(sidebarTemplate)
 		if err != nil {
 			return err
 		}
-		fd, err := os.Create(filepath.Join("views/main.templ"))
+		fd, err := os.Create(filepath.Join("views/sidebar.templ"))
 		if err != nil {
 			return err
 		}
 		defer fd.Close()
-		err = mt.Execute(fd, g.components)
+		err = mt.Execute(fd, g)
 		if err != nil {
 			return err
 		}
