@@ -2,16 +2,12 @@
 package components
 
 import (
-	"github.com/jfbus/templ-components/components/selectfield"
-	"github.com/jfbus/templ-components/components/selectfield/option"
-	"github.com/jfbus/templ-components/components/table"
-	"github.com/jfbus/templ-components/components/table/row"
+	"github.com/jfbus/templui/components/selectfield"
+	"github.com/jfbus/templui/components/selectfield/option"
+	"github.com/jfbus/templui/components/table"
+	"github.com/jfbus/templui/components/table/row"
 	"strconv"
 )
-
-templ TableViewer(def table.D) {
-	@table.C(def)
-}
 
 templ TableForm() {
 	@selectfield.C(selectfield.D{
@@ -39,9 +35,10 @@ templ TableForm() {
 
 templ TableSection() {
 	@ComponentViewer(Component{
-		ID:   "Table",
-		Form: TableForm(),
-		Viewer: TableViewer(table.D{
+		ID:      "Table",
+		Package: "table",
+		Form:    TableForm(),
+		Preview: table.C(table.D{
 			Header: &row.D{Cells: []string{"Name", "Description", ""}},
 			Rows:   []row.D{{Cells: []string{"Lorem", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.", ""}}, {Cells: []string{"Ipsum", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.", ""}}, {Cells: []string{"Dolor", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.", ""}}},
 		}),

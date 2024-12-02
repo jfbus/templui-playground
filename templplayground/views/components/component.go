@@ -1,9 +1,12 @@
 package components
 
-import "github.com/a-h/templ"
+import (
+	"github.com/a-h/templ"
+)
 
 type Component struct {
-	ID     string
-	Form   templ.Component
-	Viewer templ.Component
+	ID      string
+	Package string
+	Form    templ.Component
+	Preview templ.Component
 }

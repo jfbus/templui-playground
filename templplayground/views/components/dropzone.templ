@@ -3,27 +3,31 @@ package components
 
 import (
 	"github.com/jfbus/templui/components/checkbox"
+	"github.com/jfbus/templui/components/dropzone"
 	"github.com/jfbus/templui/components/form/validation/message"
 	"github.com/jfbus/templui/components/input"
-	"github.com/jfbus/templui/components/position"
 	"github.com/jfbus/templui/components/selectfield"
 	"github.com/jfbus/templui/components/selectfield/option"
 	"github.com/jfbus/templui/components/size"
 	"github.com/jfbus/templui/components/style"
-	"github.com/jfbus/templui/components/textarea"
 	"strconv"
 )
 
-templ TextareaForm() {
+templ DropzoneForm() {
 	@input.C(input.D{
 		Name:  "ID",
 		Label: "ID",
-		Value: "textarea",
+		Value: "dropzone",
 	})
 	@input.C(input.D{
 		Name:  "Name",
 		Label: "Name",
-		Value: "textarea",
+		Value: "dropzone",
+	})
+	@checkbox.C(checkbox.D{
+		Name:  "Multiple",
+		Label: "Multiple",
+		Value: "true",
 	})
 	@selectfield.C(selectfield.D{
 		Name:  "Style",
@@ -106,29 +110,9 @@ templ TextareaForm() {
 			},
 		},
 	})
-	@input.C(input.D{
-		Name:  "Label",
-		Label: "Label",
-		Value: "Label",
-	})
-	@input.C(input.D{
-		Name:  "Value",
-		Label: "Value",
-		Value: "Value",
-	})
-	@input.C(input.D{
-		Name:  "Placeholder",
-		Label: "Placeholder",
-		Value: "Placeholder",
-	})
-	@checkbox.C(checkbox.D{
-		Name:  "Disabled",
-		Label: "Disabled",
-		Value: "true",
-	})
 	@selectfield.C(selectfield.D{
-		Name:  "Size",
-		Label: "Size",
+		Name:  "IconSize",
+		Label: "IconSize",
 		Options: []option.D{
 			{
 				Label: "Select a value",
@@ -195,62 +179,44 @@ templ TextareaForm() {
 			},
 		},
 	})
+	@input.C(input.D{
+		Name:  "DragMessage",
+		Label: "DragMessage",
+	})
+	@input.C(input.D{
+		Name:  "DropMessage",
+		Label: "DropMessage",
+	})
+	@input.C(input.D{
+		Name:  "AllowedTypesMessage",
+		Label: "AllowedTypesMessage",
+	})
+	@checkbox.C(checkbox.D{
+		Name:  "Disabled",
+		Label: "Disabled",
+		Value: "true",
+	})
+	@checkbox.C(checkbox.D{
+		Name:  "Invalid",
+		Label: "Invalid",
+		Value: "true",
+	})
 	@checkbox.C(checkbox.D{
 		Name:  "Loader",
 		Label: "Loader",
 		Value: "true",
 	})
-	@input.C(input.D{
-		Name:  "Icon",
-		Label: "Icon",
-	})
-	@selectfield.C(selectfield.D{
-		Name:  "IconPosition",
-		Label: "IconPosition",
-		Options: []option.D{
-			{
-				Label: "Select a value",
-			},
-			{
-				Label: "position.Left",
-				Value: strconv.Itoa(int(position.Left)),
-			},
-			{
-				Label: "position.Right",
-				Value: strconv.Itoa(int(position.Right)),
-			},
-			{
-				Label: "position.Top",
-				Value: strconv.Itoa(int(position.Top)),
-			},
-			{
-				Label: "position.Bottom",
-				Value: strconv.Itoa(int(position.Bottom)),
-			},
-			{
-				Label: "position.Start",
-				Value: strconv.Itoa(int(position.Start)),
-			},
-			{
-				Label: "position.End",
-				Value: strconv.Itoa(int(position.End)),
-			},
-		},
-	})
 }
 
-templ TextareaSection() {
+templ DropzoneSection() {
 	@ComponentViewer(Component{
-		ID:      "Textarea",
-		Package: "textarea",
-		Form:    TextareaForm(),
-		Preview: textarea.C(textarea.D{
-			ID:          "textarea",
-			Name:        "textarea",
-			Label:       "Label",
-			Value:       "Value",
-			Placeholder: "Placeholder",
-			Message:     &message.D{Message: "Validation message"},
+		ID:      "Dropzone",
+		Package: "dropzone",
+		Form:    DropzoneForm(),
+		Preview: dropzone.C(dropzone.D{
+			ID:      "dropzone",
+			Name:    "dropzone",
+			Message: &message.D{Message: "Validation message"},
 		}),
 	})
 }

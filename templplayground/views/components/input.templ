@@ -2,24 +2,28 @@
 package components
 
 import (
-	"github.com/jfbus/templ-components/components/checkbox"
-	"github.com/jfbus/templ-components/components/icon"
-	"github.com/jfbus/templ-components/components/input"
-	"github.com/jfbus/templ-components/components/position"
-	"github.com/jfbus/templ-components/components/selectfield"
-	"github.com/jfbus/templ-components/components/selectfield/option"
-	"github.com/jfbus/templ-components/components/size"
+	"github.com/jfbus/templui/components/checkbox"
+	"github.com/jfbus/templui/components/form/validation/message"
+	"github.com/jfbus/templui/components/icon"
+	"github.com/jfbus/templui/components/input"
+	"github.com/jfbus/templui/components/position"
+	"github.com/jfbus/templui/components/selectfield"
+	"github.com/jfbus/templui/components/selectfield/option"
+	"github.com/jfbus/templui/components/size"
+	"github.com/jfbus/templui/components/style"
 	"strconv"
 )
 
-templ InputViewer(def input.D) {
-	@input.C(def)
-}
-
 templ InputForm() {
+	@input.C(input.D{
+		Name:  "ID",
+		Label: "ID",
+		Value: "input",
+	})
 	@input.C(input.D{
 		Name:  "Name",
 		Label: "Name",
+		Value: "input",
 	})
 	@selectfield.C(selectfield.D{
 		Name:  "Type",
@@ -48,6 +52,91 @@ templ InputForm() {
 				Label: "input.TypeURL",
 				Value: string(input.TypeURL),
 			},
+			{
+				Label: "input.TypeHidden",
+				Value: string(input.TypeHidden),
+			},
+		},
+	})
+	@selectfield.C(selectfield.D{
+		Name:  "Style",
+		Label: "Style",
+		Options: []option.D{
+			{
+				Label: "Select a value",
+			},
+			{
+				Label: "style.Default",
+				Value: strconv.Itoa(int(style.Default)),
+			},
+			{
+				Label: "style.Disabled",
+				Value: strconv.Itoa(int(style.Disabled)),
+			},
+			{
+				Label: "style.Valid",
+				Value: strconv.Itoa(int(style.Valid)),
+			},
+			{
+				Label: "style.Invalid",
+				Value: strconv.Itoa(int(style.Invalid)),
+			},
+			{
+				Label: "style.SizeXS",
+				Value: strconv.Itoa(int(style.SizeXS)),
+			},
+			{
+				Label: "style.SizeS",
+				Value: strconv.Itoa(int(style.SizeS)),
+			},
+			{
+				Label: "style.SizeNormal",
+				Value: strconv.Itoa(int(style.SizeNormal)),
+			},
+			{
+				Label: "style.SizeL",
+				Value: strconv.Itoa(int(style.SizeL)),
+			},
+			{
+				Label: "style.SizeXL",
+				Value: strconv.Itoa(int(style.SizeXL)),
+			},
+			{
+				Label: "style.SizeTwoXL",
+				Value: strconv.Itoa(int(style.SizeTwoXL)),
+			},
+			{
+				Label: "style.SizeThreeXL",
+				Value: strconv.Itoa(int(style.SizeThreeXL)),
+			},
+			{
+				Label: "style.SizeFourXL",
+				Value: strconv.Itoa(int(style.SizeFourXL)),
+			},
+			{
+				Label: "style.SizeFiveXL",
+				Value: strconv.Itoa(int(style.SizeFiveXL)),
+			},
+			{
+				Label: "style.SizeSixXL",
+				Value: strconv.Itoa(int(style.SizeSixXL)),
+			},
+			{
+				Label: "style.SizeSevenXL",
+				Value: strconv.Itoa(int(style.SizeSevenXL)),
+			},
+			{
+				Label: "style.SizeEightXL",
+				Value: strconv.Itoa(int(style.SizeEightXL)),
+			},
+			{
+				Label: "style.SizeNineXL",
+				Value: strconv.Itoa(int(style.SizeNineXL)),
+			},
+			{
+				Label: "style.SizeFull",
+				Value: strconv.Itoa(int(style.SizeFull)),
+			},
 		},
 	})
 	@input.C(input.D{
@@ -68,6 +157,11 @@ templ InputForm() {
 	@checkbox.C(checkbox.D{
 		Name:  "Disabled",
 		Label: "Disabled",
+		Value: "true",
+	})
+	@checkbox.C(checkbox.D{
+		Name:  "Invalid",
+		Label: "Invalid",
 		Value: "true",
 	})
 	@selectfield.C(selectfield.D{
@@ -130,12 +224,16 @@ templ InputForm() {
 
 templ InputSection() {
 	@ComponentViewer(Component{
-		ID:   "Input",
-		Form: InputForm(),
-		Viewer: InputViewer(input.D{
+		ID:      "Input",
+		Package: "input",
+		Form:    InputForm(),
+		Preview: input.C(input.D{
+			ID:          "input",
+			Name:        "input",
 			Label:       "Label",
 			Value:       "Value",
 			Placeholder: "Placeholder",
+			Message:     &message.D{Message: "Validation message"},
 		}),
 	})
 }

@@ -1,5 +1,18 @@
 package views
 
+import (
+	"github.com/jfbus/templui/components/a"
+	"github.com/jfbus/templui/components/body"
+	"github.com/jfbus/templui/components/button"
+	"github.com/jfbus/templui/components/div"
+	"github.com/jfbus/templui/components/footer"
+	"github.com/jfbus/templui/components/icon"
+	"github.com/jfbus/templui/components/navbar"
+	"github.com/jfbus/templui/components/sidebar"
+	"github.com/jfbus/templui/components/sidebar/control"
+	"github.com/jfbus/templui/components/text"
+)
+
 templ Base() {
 	<!DOCTYPE html>
 	<html lang="en">
@@ -12,13 +25,38 @@ templ Base() {
 			/>
 			<meta name="google" content="notranslate"/>
 			<link rel="stylesheet" href="/static/css/main.css" type="text/css"/>
-			<title>Templ components</title>
+			<title>TemplUI Playground</title>
 			<script defer src="/static/js/bundle.js"></script>
 		</head>
-		<body>
-			<div class="max-w-screen-xl mx-auto">
-				@Main()
-			</div>
-		</body>
+		@body.C(body.D{
+			Navbar: &navbar.D{
+				Style: navbar.StyleSticky,
+				Sections: []templ.Component{
+					div.C(div.D{Content: templ.Join(
+						control.C(control.D{}),
+						a.C(a.D{
+							Text: "TemplUI Playground",
+							Href: "/",
+						}),
+					)}),
+					button.C(button.D{
+						Icon:  icon.Github,
+						Type:  button.A,
+						Style: button.StyleNoBorder,
+						Attributes: templ.Attributes{
+							"href": "https://github.com/jfbus/templui",
+						},
+					}),
+				},
+			},
+			Sidebar: &sidebar.D{
+				Content: Sidebar(),
+			},
+			Footer: &footer.D{
+				Copyright: text.C("© Jean-François Bustarret 2024"),
+			},
+		}) {
+			<div id="body" class="p-4"></div>
+		}
 	</html>
 }

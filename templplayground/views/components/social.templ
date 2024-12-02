@@ -2,15 +2,56 @@
 package components
 
 import (
-	"github.com/jfbus/templui/components/button"
-	"github.com/jfbus/templui/components/buttongroup"
+	"github.com/jfbus/templui/components/input"
 	"github.com/jfbus/templui/components/selectfield"
 	"github.com/jfbus/templui/components/selectfield/option"
 	"github.com/jfbus/templui/components/size"
+	"github.com/jfbus/templui/components/social"
 	"strconv"
 )
 
-templ ButtongroupForm() {
+templ SocialForm() {
+	@selectfield.C(selectfield.D{
+		Name:  "Type",
+		Label: "Type",
+		Options: []option.D{
+			{
+				Label: "Select a value",
+			},
+			{
+				Label: "social.Facebook",
+				Value: strconv.Itoa(int(social.Facebook)),
+			},
+			{
+				Label: "social.Instagram",
+				Value: strconv.Itoa(int(social.Instagram)),
+			},
+			{
+				Label: "social.Github",
+				Value: strconv.Itoa(int(social.Github)),
+			},
+			{
+				Label: "social.Twitch",
+				Value: strconv.Itoa(int(social.Twitch)),
+			},
+			{
+				Label: "social.LinkedIn",
+				Value: strconv.Itoa(int(social.LinkedIn)),
+			},
+			{
+				Label: "social.Youtube",
+				Value: strconv.Itoa(int(social.Youtube)),
+			},
+			{
+				Label: "social.Dribble",
+				Value: strconv.Itoa(int(social.Dribble)),
+			},
+		},
+	})
+	@input.C(input.D{
+		Name:  "Link",
+		Label: "Link",
+	})
 	@selectfield.C(selectfield.D{
 		Name:  "Size",
 		Label: "Size",
@@ -82,13 +123,11 @@ templ ButtongroupForm() {
 	})
 }
 
-templ ButtongroupSection() {
+templ SocialSection() {
 	@ComponentViewer(Component{
-		ID:      "Buttongroup",
-		Package: "buttongroup",
-		Form:    ButtongroupForm(),
-		Preview: buttongroup.C(buttongroup.D{
-			Buttons: []button.D{{Label: "A"}, {Label: "B"}, {Label: "C"}, {Label: "D"}},
-		}),
+		ID:      "Social",
+		Package: "social",
+		Form:    SocialForm(),
+		Preview: social.C(social.D{}),
 	})
 }

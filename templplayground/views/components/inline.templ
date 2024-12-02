@@ -2,18 +2,14 @@
 package components
 
 import (
-	"github.com/jfbus/templ-components/components/checkbox"
-	"github.com/jfbus/templ-components/components/inline"
-	"github.com/jfbus/templ-components/components/input"
-	"github.com/jfbus/templ-components/components/selectfield"
-	"github.com/jfbus/templ-components/components/selectfield/option"
-	"github.com/jfbus/templ-components/components/size"
+	"github.com/jfbus/templui/components/checkbox"
+	"github.com/jfbus/templui/components/inline"
+	"github.com/jfbus/templui/components/input"
+	"github.com/jfbus/templui/components/selectfield"
+	"github.com/jfbus/templui/components/selectfield/option"
+	"github.com/jfbus/templui/components/size"
 	"strconv"
 )
-
-templ InlineViewer(def inline.D) {
-	@inline.C(def)
-}
 
 templ InlineForm() {
 	@input.C(input.D{
@@ -103,9 +99,10 @@ templ InlineForm() {
 
 templ InlineSection() {
 	@ComponentViewer(Component{
-		ID:   "Inline",
-		Form: InlineForm(),
-		Viewer: InlineViewer(inline.D{
+		ID:      "Inline",
+		Package: "inline",
+		Form:    InlineForm(),
+		Preview: inline.C(inline.D{
 			Value: "Value",
 			Edit:  input.C(input.D{Name: "edit"}),
 		}),
