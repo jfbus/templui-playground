@@ -9,6 +9,7 @@ type Component struct {
 	Package    string
 	ImportPath string
 	Fields     []Field
+	Ignore     bool
 }
 
 func (c Component) ImportPaths() []string {
