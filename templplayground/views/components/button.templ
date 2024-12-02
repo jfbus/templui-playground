@@ -2,22 +2,23 @@
 package components
 
 import (
-	"github.com/jfbus/templ-components/components/button"
-	"github.com/jfbus/templ-components/components/checkbox"
-	"github.com/jfbus/templ-components/components/icon"
-	"github.com/jfbus/templ-components/components/input"
-	"github.com/jfbus/templ-components/components/position"
-	"github.com/jfbus/templ-components/components/selectfield"
-	"github.com/jfbus/templ-components/components/selectfield/option"
-	"github.com/jfbus/templ-components/components/size"
+	"github.com/jfbus/templui/components/button"
+	"github.com/jfbus/templui/components/checkbox"
+	"github.com/jfbus/templui/components/icon"
+	"github.com/jfbus/templui/components/input"
+	"github.com/jfbus/templui/components/position"
+	"github.com/jfbus/templui/components/selectfield"
+	"github.com/jfbus/templui/components/selectfield/option"
+	"github.com/jfbus/templui/components/size"
 	"strconv"
 )
 
-templ ButtonViewer(def button.D) {
-	@button.C(def)
-}
-
 templ ButtonForm() {
+	@input.C(input.D{
+		Name:  "ID",
+		Label: "ID",
+		Value: "button",
+	})
 	@selectfield.C(selectfield.D{
 		Name:  "Type",
 		Label: "Type",
@@ -44,11 +45,6 @@ templ ButtonForm() {
 		Label: "Label",
 		Value: "Label",
 	})
-	@checkbox.C(checkbox.D{
-		Name:  "HideLabel",
-		Label: "HideLabel",
-		Value: "true",
-	})
 	@selectfield.C(selectfield.D{
 		Name:  "Style",
 		Label: "Style",
@@ -61,12 +57,12 @@ templ ButtonForm() {
 				Value: strconv.Itoa(int(button.StylePill)),
 			},
 			{
-				Label: "button.StyleOutline",
-				Value: strconv.Itoa(int(button.StyleOutline)),
+				Label: "button.StyleAlternative",
+				Value: strconv.Itoa(int(button.StyleAlternative)),
 			},
 			{
-				Label: "button.StyleOutlinePill",
-				Value: strconv.Itoa(int(button.StyleOutlinePill)),
+				Label: "button.StyleOutline",
+				Value: strconv.Itoa(int(button.StyleOutline)),
 			},
 			{
 				Label: "button.StyleNoBorder",
@@ -75,6 +71,18 @@ templ ButtonForm() {
 			{
 				Label: "button.StyleFullWidth",
 				Value: strconv.Itoa(int(button.StyleFullWidth)),
+			},
+			{
+				Label: "button.StyleHideLabelAlways",
+				Value: strconv.Itoa(int(button.StyleHideLabelAlways)),
+			},
+			{
+				Label: "button.StyleHideLabelSmall",
+				Value: strconv.Itoa(int(button.StyleHideLabelSmall)),
+			},
+			{
+				Label: "button.StyleHideLabelMedium",
+				Value: strconv.Itoa(int(button.StyleHideLabelMedium)),
 			},
 		},
 	})
@@ -151,9 +159,11 @@ templ ButtonForm() {
 
 templ ButtonSection() {
 	@ComponentViewer(Component{
-		ID:   "Button",
-		Form: ButtonForm(),
-		Viewer: ButtonViewer(button.D{
+		ID:      "Button",
+		Package: "button",
+		Form:    ButtonForm(),
+		Preview: button.C(button.D{
+			ID:    "button",
 			Label: "Label",
 		}),
 	})

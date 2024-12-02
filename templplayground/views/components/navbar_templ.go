@@ -11,14 +11,18 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
+	"github.com/jfbus/templui/components/a"
+	"github.com/jfbus/templui/components/button"
+	"github.com/jfbus/templui/components/dropdown"
+	"github.com/jfbus/templui/components/icon"
+	"github.com/jfbus/templui/components/navbar"
 	"github.com/jfbus/templui/components/selectfield"
 	"github.com/jfbus/templui/components/selectfield/option"
-	"github.com/jfbus/templui/components/table"
-	"github.com/jfbus/templui/components/table/row"
+	"github.com/jfbus/templui/components/size"
 	"strconv"
 )
 
-func TableForm() templ.Component {
+func NavbarForm() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -47,16 +51,8 @@ func TableForm() templ.Component {
 					Label: "Select a value",
 				},
 				{
-					Label: "table.StyleStripedRows",
-					Value: strconv.Itoa(int(table.StyleStripedRows)),
-				},
-				{
-					Label: "table.StyleNoBorder",
-					Value: strconv.Itoa(int(table.StyleNoBorder)),
-				},
-				{
-					Label: "table.StyleAddHighlightHover",
-					Value: strconv.Itoa(int(table.StyleAddHighlightHover)),
+					Label: "navbar.StyleSticky",
+					Value: strconv.Itoa(int(navbar.StyleSticky)),
 				},
 			},
 		}).Render(ctx, templ_7745c5c3_Buffer)
@@ -67,7 +63,7 @@ func TableForm() templ.Component {
 	})
 }
 
-func TableSection() templ.Component {
+func NavbarSection() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -89,12 +85,11 @@ func TableSection() templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		templ_7745c5c3_Err = ComponentViewer(Component{
-			ID:      "Table",
-			Package: "table",
-			Form:    TableForm(),
-			Preview: table.C(table.D{
-				Header: &row.D{Cells: []string{"Name", "Description", ""}},
-				Rows:   []row.D{{Cells: []string{"Lorem", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.", ""}}, {Cells: []string{"Ipsum", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.", ""}}, {Cells: []string{"Dolor", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.", ""}}},
+			ID:      "Navbar",
+			Package: "navbar",
+			Form:    NavbarForm(),
+			Preview: navbar.C(navbar.D{
+				Sections: []templ.Component{a.C(a.D{Text: "Your Brand"}), dropdown.C(dropdown.D{Button: button.D{Style: button.StyleNoBorder, Icon: icon.CircleUserRound, Size: size.XL}, Links: [][]a.D{{{Text: "Profile"}}, {{Text: "Logout"}}}})},
 			}),
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {

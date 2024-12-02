@@ -2,15 +2,14 @@
 package components
 
 import (
-	"github.com/jfbus/templui/components/button"
-	"github.com/jfbus/templui/components/buttongroup"
+	"github.com/jfbus/templui/components/loader"
 	"github.com/jfbus/templui/components/selectfield"
 	"github.com/jfbus/templui/components/selectfield/option"
 	"github.com/jfbus/templui/components/size"
 	"strconv"
 )
 
-templ ButtongroupForm() {
+templ LoaderForm() {
 	@selectfield.C(selectfield.D{
 		Name:  "Size",
 		Label: "Size",
@@ -82,13 +81,11 @@ templ ButtongroupForm() {
 	})
 }
 
-templ ButtongroupSection() {
+templ LoaderSection() {
 	@ComponentViewer(Component{
-		ID:      "Buttongroup",
-		Package: "buttongroup",
-		Form:    ButtongroupForm(),
-		Preview: buttongroup.C(buttongroup.D{
-			Buttons: []button.D{{Label: "A"}, {Label: "B"}, {Label: "C"}, {Label: "D"}},
-		}),
+		ID:      "Loader",
+		Package: "loader",
+		Form:    LoaderForm(),
+		Preview: loader.C(loader.D{}),
 	})
 }

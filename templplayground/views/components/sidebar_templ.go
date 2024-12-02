@@ -11,14 +11,12 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"github.com/jfbus/templui/components/selectfield"
-	"github.com/jfbus/templui/components/selectfield/option"
-	"github.com/jfbus/templui/components/table"
-	"github.com/jfbus/templui/components/table/row"
-	"strconv"
+	"github.com/jfbus/templui/components/button"
+	"github.com/jfbus/templui/components/input"
+	"github.com/jfbus/templui/components/sidebar"
 )
 
-func TableForm() templ.Component {
+func SidebarForm() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -39,26 +37,10 @@ func TableForm() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = selectfield.C(selectfield.D{
-			Name:  "Style",
-			Label: "Style",
-			Options: []option.D{
-				{
-					Label: "Select a value",
-				},
-				{
-					Label: "table.StyleStripedRows",
-					Value: strconv.Itoa(int(table.StyleStripedRows)),
-				},
-				{
-					Label: "table.StyleNoBorder",
-					Value: strconv.Itoa(int(table.StyleNoBorder)),
-				},
-				{
-					Label: "table.StyleAddHighlightHover",
-					Value: strconv.Itoa(int(table.StyleAddHighlightHover)),
-				},
-			},
+		templ_7745c5c3_Err = input.C(input.D{
+			Name:  "ID",
+			Label: "ID",
+			Value: "sidebar",
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -67,7 +49,7 @@ func TableForm() templ.Component {
 	})
 }
 
-func TableSection() templ.Component {
+func SidebarSection() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -89,12 +71,12 @@ func TableSection() templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		templ_7745c5c3_Err = ComponentViewer(Component{
-			ID:      "Table",
-			Package: "table",
-			Form:    TableForm(),
-			Preview: table.C(table.D{
-				Header: &row.D{Cells: []string{"Name", "Description", ""}},
-				Rows:   []row.D{{Cells: []string{"Lorem", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.", ""}}, {Cells: []string{"Ipsum", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.", ""}}, {Cells: []string{"Dolor", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.", ""}}},
+			ID:      "Sidebar",
+			Package: "sidebar",
+			Form:    SidebarForm(),
+			Preview: sidebar.C(sidebar.D{
+				ID:      "sidebar",
+				Content: button.C(button.D{Label: "Button"}),
 			}),
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {

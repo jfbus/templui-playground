@@ -1,25 +1,35 @@
 package components
 
-import "github.com/jfbus/templ-components/components/button"
+import (
+	"github.com/jfbus/templui/components/button"
+	"github.com/jfbus/templui/components/form"
+)
 
 templ ComponentViewer(c Component) {
-	<div class="grid grid-cols-2 gap-4">
+	<div class="flex gap-4">
 		if c.Form != nil {
-			<form
-				class="space-y-2"
-				hx-post={ "/view/" + c.ID }
-				hx-target={ "#" + c.ID + "Viewer" }
-			>
-				@c.Form
-				@button.C(button.D{Type: button.Submit, Label: "Preview"})
-			</form>
+			<div>
+				<h3 class="font-medium text-center mb-2">
+					Try it !
+				</h3>
+				@form.C(form.D{
+					Attributes: templ.Attributes{
+						"class":     "space-y-2 border p-5 min-w-1/2 min-h-1/2 mx-auto rounded border-gray-100",
+						"hx-post":   "/update/" + c.ID,
+						"hx-target": "#preview",
+					},
+				}) {
+					@c.Form
+					@button.C(button.D{Type: button.Submit, Label: "Preview"})
+				}
+			</div>
 		}
-		<div>
+		<div class="grow">
 			<h3 class="font-medium text-center mb-2">
 				Preview
 			</h3>
-			<div id={ c.ID + "Viewer" } class="border p-5 min-w-1/2 min-h-1/2 mx-auto rounded border-gray-100">
-				@c.Viewer
+			<div id="preview" class="border p-5 min-w-1/2 min-h-1/2 mx-auto rounded border-gray-100">
+				@c.Preview
 			</div>
 		</div>
 	</div>

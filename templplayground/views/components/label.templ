@@ -2,22 +2,22 @@
 package components
 
 import (
-	"github.com/jfbus/templ-components/components/checkbox"
-	"github.com/jfbus/templ-components/components/input"
-	"github.com/jfbus/templ-components/components/label"
-	"github.com/jfbus/templ-components/components/selectfield"
-	"github.com/jfbus/templ-components/components/selectfield/option"
+	"github.com/jfbus/templui/components/checkbox"
+	"github.com/jfbus/templui/components/input"
+	"github.com/jfbus/templui/components/label"
+	"github.com/jfbus/templui/components/selectfield"
+	"github.com/jfbus/templui/components/selectfield/option"
 	"strconv"
 )
-
-templ LabelViewer(def label.D) {
-	@label.C(def)
-}
 
 templ LabelForm() {
 	@input.C(input.D{
 		Name:  "InputID",
 		Label: "InputID",
+	})
+	@input.C(input.D{
+		Name:  "InputName",
+		Label: "InputName",
 	})
 	@selectfield.C(selectfield.D{
 		Name:  "Style",
@@ -42,13 +42,19 @@ templ LabelForm() {
 		Label: "Hide",
 		Value: "true",
 	})
+	@checkbox.C(checkbox.D{
+		Name:  "NoValidation",
+		Label: "NoValidation",
+		Value: "true",
+	})
 }
 
 templ LabelSection() {
 	@ComponentViewer(Component{
-		ID:   "Label",
-		Form: LabelForm(),
-		Viewer: LabelViewer(label.D{
+		ID:      "Label",
+		Package: "label",
+		Form:    LabelForm(),
+		Preview: label.C(label.D{
 			Label: "Label",
 		}),
 	})

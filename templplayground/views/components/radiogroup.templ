@@ -2,21 +2,20 @@
 package components
 
 import (
-	"github.com/jfbus/templ-components/components/input"
-	"github.com/jfbus/templ-components/components/radiogroup"
-	"github.com/jfbus/templ-components/components/selectfield"
-	"github.com/jfbus/templ-components/components/selectfield/option"
+	"github.com/jfbus/templui/components/form/validation/message"
+	"github.com/jfbus/templui/components/input"
+	"github.com/jfbus/templui/components/radio"
+	"github.com/jfbus/templui/components/radiogroup"
+	"github.com/jfbus/templui/components/selectfield"
+	"github.com/jfbus/templui/components/selectfield/option"
 	"strconv"
 )
-
-templ RadiogroupViewer(def radiogroup.D) {
-	@radiogroup.C(def)
-}
 
 templ RadiogroupForm() {
 	@input.C(input.D{
 		Name:  "Name",
 		Label: "Name",
+		Value: "radiogroup",
 	})
 	@selectfield.C(selectfield.D{
 		Name:  "Style",
@@ -24,6 +23,10 @@ templ RadiogroupForm() {
 		Options: []option.D{
 			{
 				Label: "Select a value",
+			},
+			{
+				Label: "radiogroup.StyleHorizontal",
+				Value: strconv.Itoa(int(radiogroup.StyleHorizontal)),
 			},
 			{
 				Label: "radiogroup.StyleBordered",
@@ -34,8 +37,8 @@ templ RadiogroupForm() {
 				Value: strconv.Itoa(int(radiogroup.StyleGrouped)),
 			},
 			{
-				Label: "radiogroup.StyleGroupedVertical",
-				Value: strconv.Itoa(int(radiogroup.StyleGroupedVertical)),
+				Label: "radiogroup.StyleGroupedHorizontal",
+				Value: strconv.Itoa(int(radiogroup.StyleGroupedHorizontal)),
 			},
 			{
 				Label: "radiogroup.StyleLabelOnly",
@@ -47,8 +50,13 @@ templ RadiogroupForm() {
 
 templ RadiogroupSection() {
 	@ComponentViewer(Component{
-		ID:     "Radiogroup",
-		Form:   RadiogroupForm(),
-		Viewer: RadiogroupViewer(radiogroup.D{}),
+		ID:      "Radiogroup",
+		Package: "radiogroup",
+		Form:    RadiogroupForm(),
+		Preview: radiogroup.C(radiogroup.D{
+			Name:    "radiogroup",
+			Radios:  []radio.D{{Name: "foo", Value: "1", Label: "Choice 1"}, {Name: "foo", Value: "2", Label: "Choice 2"}},
+			Message: &message.D{Message: "Validation message"},
+		}),
 	})
 }

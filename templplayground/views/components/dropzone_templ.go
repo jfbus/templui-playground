@@ -11,15 +11,18 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"github.com/jfbus/templui/components/icon"
+	"github.com/jfbus/templui/components/checkbox"
+	"github.com/jfbus/templui/components/dropzone"
+	"github.com/jfbus/templui/components/form/validation/message"
 	"github.com/jfbus/templui/components/input"
 	"github.com/jfbus/templui/components/selectfield"
 	"github.com/jfbus/templui/components/selectfield/option"
 	"github.com/jfbus/templui/components/size"
+	"github.com/jfbus/templui/components/style"
 	"strconv"
 )
 
-func IconForm() templ.Component {
+func DropzoneForm() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -41,8 +44,25 @@ func IconForm() templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		templ_7745c5c3_Err = input.C(input.D{
-			Name:  "Icon",
-			Label: "Icon",
+			Name:  "ID",
+			Label: "ID",
+			Value: "dropzone",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = input.C(input.D{
+			Name:  "Name",
+			Label: "Name",
+			Value: "dropzone",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = checkbox.C(checkbox.D{
+			Name:  "Multiple",
+			Label: "Multiple",
+			Value: "true",
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -55,8 +75,76 @@ func IconForm() templ.Component {
 					Label: "Select a value",
 				},
 				{
-					Label: "icon.StyleBorder",
-					Value: strconv.Itoa(int(icon.StyleBorder)),
+					Label: "style.Default",
+					Value: strconv.Itoa(int(style.Default)),
+				},
+				{
+					Label: "style.Disabled",
+					Value: strconv.Itoa(int(style.Disabled)),
+				},
+				{
+					Label: "style.Valid",
+					Value: strconv.Itoa(int(style.Valid)),
+				},
+				{
+					Label: "style.Invalid",
+					Value: strconv.Itoa(int(style.Invalid)),
+				},
+				{
+					Label: "style.SizeXS",
+					Value: strconv.Itoa(int(style.SizeXS)),
+				},
+				{
+					Label: "style.SizeS",
+					Value: strconv.Itoa(int(style.SizeS)),
+				},
+				{
+					Label: "style.SizeNormal",
+					Value: strconv.Itoa(int(style.SizeNormal)),
+				},
+				{
+					Label: "style.SizeL",
+					Value: strconv.Itoa(int(style.SizeL)),
+				},
+				{
+					Label: "style.SizeXL",
+					Value: strconv.Itoa(int(style.SizeXL)),
+				},
+				{
+					Label: "style.SizeTwoXL",
+					Value: strconv.Itoa(int(style.SizeTwoXL)),
+				},
+				{
+					Label: "style.SizeThreeXL",
+					Value: strconv.Itoa(int(style.SizeThreeXL)),
+				},
+				{
+					Label: "style.SizeFourXL",
+					Value: strconv.Itoa(int(style.SizeFourXL)),
+				},
+				{
+					Label: "style.SizeFiveXL",
+					Value: strconv.Itoa(int(style.SizeFiveXL)),
+				},
+				{
+					Label: "style.SizeSixXL",
+					Value: strconv.Itoa(int(style.SizeSixXL)),
+				},
+				{
+					Label: "style.SizeSevenXL",
+					Value: strconv.Itoa(int(style.SizeSevenXL)),
+				},
+				{
+					Label: "style.SizeEightXL",
+					Value: strconv.Itoa(int(style.SizeEightXL)),
+				},
+				{
+					Label: "style.SizeNineXL",
+					Value: strconv.Itoa(int(style.SizeNineXL)),
+				},
+				{
+					Label: "style.SizeFull",
+					Value: strconv.Itoa(int(style.SizeFull)),
 				},
 			},
 		}).Render(ctx, templ_7745c5c3_Buffer)
@@ -64,8 +152,8 @@ func IconForm() templ.Component {
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = selectfield.C(selectfield.D{
-			Name:  "Size",
-			Label: "Size",
+			Name:  "IconSize",
+			Label: "IconSize",
 			Options: []option.D{
 				{
 					Label: "Select a value",
@@ -135,11 +223,56 @@ func IconForm() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
+		templ_7745c5c3_Err = input.C(input.D{
+			Name:  "DragMessage",
+			Label: "DragMessage",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = input.C(input.D{
+			Name:  "DropMessage",
+			Label: "DropMessage",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = input.C(input.D{
+			Name:  "AllowedTypesMessage",
+			Label: "AllowedTypesMessage",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = checkbox.C(checkbox.D{
+			Name:  "Disabled",
+			Label: "Disabled",
+			Value: "true",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = checkbox.C(checkbox.D{
+			Name:  "Invalid",
+			Label: "Invalid",
+			Value: "true",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = checkbox.C(checkbox.D{
+			Name:  "Loader",
+			Label: "Loader",
+			Value: "true",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
 		return templ_7745c5c3_Err
 	})
 }
 
-func IconSection() templ.Component {
+func DropzoneSection() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -161,10 +294,14 @@ func IconSection() templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		templ_7745c5c3_Err = ComponentViewer(Component{
-			ID:      "Icon",
-			Package: "icon",
-			Form:    IconForm(),
-			Preview: icon.C(icon.D{}),
+			ID:      "Dropzone",
+			Package: "dropzone",
+			Form:    DropzoneForm(),
+			Preview: dropzone.C(dropzone.D{
+				ID:      "dropzone",
+				Name:    "dropzone",
+				Message: &message.D{Message: "Validation message"},
+			}),
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

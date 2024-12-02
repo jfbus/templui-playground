@@ -11,14 +11,14 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
+	"github.com/jfbus/templui/components/input"
 	"github.com/jfbus/templui/components/selectfield"
 	"github.com/jfbus/templui/components/selectfield/option"
-	"github.com/jfbus/templui/components/table"
-	"github.com/jfbus/templui/components/table/row"
+	"github.com/jfbus/templui/components/toast"
 	"strconv"
 )
 
-func TableForm() templ.Component {
+func ToastForm() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -39,6 +39,14 @@ func TableForm() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
+		templ_7745c5c3_Err = input.C(input.D{
+			Name:  "ContainerID",
+			Label: "ContainerID",
+			Value: "toasts",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
 		templ_7745c5c3_Err = selectfield.C(selectfield.D{
 			Name:  "Style",
 			Label: "Style",
@@ -47,16 +55,51 @@ func TableForm() templ.Component {
 					Label: "Select a value",
 				},
 				{
-					Label: "table.StyleStripedRows",
-					Value: strconv.Itoa(int(table.StyleStripedRows)),
+					Label: "toast.StyleOK",
+					Value: strconv.Itoa(int(toast.StyleOK)),
 				},
 				{
-					Label: "table.StyleNoBorder",
-					Value: strconv.Itoa(int(table.StyleNoBorder)),
+					Label: "toast.StyleWarning",
+					Value: strconv.Itoa(int(toast.StyleWarning)),
 				},
 				{
-					Label: "table.StyleAddHighlightHover",
-					Value: strconv.Itoa(int(table.StyleAddHighlightHover)),
+					Label: "toast.StyleError",
+					Value: strconv.Itoa(int(toast.StyleError)),
+				},
+			},
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = input.C(input.D{
+			Name:  "Icon",
+			Label: "Icon",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = input.C(input.D{
+			Name:  "Content",
+			Label: "Content",
+			Value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = selectfield.C(selectfield.D{
+			Name:  "Close",
+			Label: "Close",
+			Options: []option.D{
+				{
+					Label: "Select a value",
+				},
+				{
+					Label: "toast.CloseAuto",
+					Value: strconv.Itoa(int(toast.CloseAuto)),
+				},
+				{
+					Label: "toast.CloseButton",
+					Value: strconv.Itoa(int(toast.CloseButton)),
 				},
 			},
 		}).Render(ctx, templ_7745c5c3_Buffer)
@@ -67,7 +110,7 @@ func TableForm() templ.Component {
 	})
 }
 
-func TableSection() templ.Component {
+func ToastSection() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -89,12 +132,12 @@ func TableSection() templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		templ_7745c5c3_Err = ComponentViewer(Component{
-			ID:      "Table",
-			Package: "table",
-			Form:    TableForm(),
-			Preview: table.C(table.D{
-				Header: &row.D{Cells: []string{"Name", "Description", ""}},
-				Rows:   []row.D{{Cells: []string{"Lorem", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.", ""}}, {Cells: []string{"Ipsum", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.", ""}}, {Cells: []string{"Dolor", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.", ""}}},
+			ID:      "Toast",
+			Package: "toast",
+			Form:    ToastForm(),
+			Preview: toast.C(toast.D{
+				ContainerID: "toasts",
+				Content:     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.",
 			}),
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {

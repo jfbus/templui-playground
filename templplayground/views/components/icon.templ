@@ -2,17 +2,13 @@
 package components
 
 import (
-	"github.com/jfbus/templ-components/components/icon"
-	"github.com/jfbus/templ-components/components/input"
-	"github.com/jfbus/templ-components/components/selectfield"
-	"github.com/jfbus/templ-components/components/selectfield/option"
-	"github.com/jfbus/templ-components/components/size"
+	"github.com/jfbus/templui/components/icon"
+	"github.com/jfbus/templui/components/input"
+	"github.com/jfbus/templui/components/selectfield"
+	"github.com/jfbus/templui/components/selectfield/option"
+	"github.com/jfbus/templui/components/size"
 	"strconv"
 )
-
-templ IconViewer(def icon.D) {
-	@icon.C(def)
-}
 
 templ IconForm() {
 	@input.C(input.D{
@@ -105,8 +101,9 @@ templ IconForm() {
 
 templ IconSection() {
 	@ComponentViewer(Component{
-		ID:     "Icon",
-		Form:   IconForm(),
-		Viewer: IconViewer(icon.D{}),
+		ID:      "Icon",
+		Package: "icon",
+		Form:    IconForm(),
+		Preview: icon.C(icon.D{}),
 	})
 }

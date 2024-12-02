@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	views "github.com/jfbus/templ-components-playground/templplayground/views"
+	views "github.com/jfbus/templui-playground/templplayground/views"
 	"github.com/labstack/echo/v4"
 )
 

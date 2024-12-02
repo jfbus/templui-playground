@@ -2,21 +2,107 @@
 package components
 
 import (
-	"github.com/jfbus/templ-components/components/input"
-	"github.com/jfbus/templ-components/components/selectfield"
-	"github.com/jfbus/templ-components/components/selectfield/option"
-	"github.com/jfbus/templ-components/components/size"
+	"github.com/jfbus/templui/components/checkbox"
+	"github.com/jfbus/templui/components/form/validation/message"
+	"github.com/jfbus/templui/components/input"
+	"github.com/jfbus/templui/components/selectfield"
+	"github.com/jfbus/templui/components/selectfield/option"
+	"github.com/jfbus/templui/components/size"
+	"github.com/jfbus/templui/components/style"
 	"strconv"
 )
 
-templ SelectfieldViewer(def selectfield.D) {
-	@selectfield.C(def)
-}
-
 templ SelectfieldForm() {
+	@input.C(input.D{
+		Name:  "ID",
+		Label: "ID",
+		Value: "selectfield",
+	})
 	@input.C(input.D{
 		Name:  "Name",
 		Label: "Name",
+		Value: "selectfield",
+	})
+	@selectfield.C(selectfield.D{
+		Name:  "Style",
+		Label: "Style",
+		Options: []option.D{
+			{
+				Label: "Select a value",
+			},
+			{
+				Label: "style.Default",
+				Value: strconv.Itoa(int(style.Default)),
+			},
+			{
+				Label: "style.Disabled",
+				Value: strconv.Itoa(int(style.Disabled)),
+			},
+			{
+				Label: "style.Valid",
+				Value: strconv.Itoa(int(style.Valid)),
+			},
+			{
+				Label: "style.Invalid",
+				Value: strconv.Itoa(int(style.Invalid)),
+			},
+			{
+				Label: "style.SizeXS",
+				Value: strconv.Itoa(int(style.SizeXS)),
+			},
+			{
+				Label: "style.SizeS",
+				Value: strconv.Itoa(int(style.SizeS)),
+			},
+			{
+				Label: "style.SizeNormal",
+				Value: strconv.Itoa(int(style.SizeNormal)),
+			},
+			{
+				Label: "style.SizeL",
+				Value: strconv.Itoa(int(style.SizeL)),
+			},
+			{
+				Label: "style.SizeXL",
+				Value: strconv.Itoa(int(style.SizeXL)),
+			},
+			{
+				Label: "style.SizeTwoXL",
+				Value: strconv.Itoa(int(style.SizeTwoXL)),
+			},
+			{
+				Label: "style.SizeThreeXL",
+				Value: strconv.Itoa(int(style.SizeThreeXL)),
+			},
+			{
+				Label: "style.SizeFourXL",
+				Value: strconv.Itoa(int(style.SizeFourXL)),
+			},
+			{
+				Label: "style.SizeFiveXL",
+				Value: strconv.Itoa(int(style.SizeFiveXL)),
+			},
+			{
+				Label: "style.SizeSixXL",
+				Value: strconv.Itoa(int(style.SizeSixXL)),
+			},
+			{
+				Label: "style.SizeSevenXL",
+				Value: strconv.Itoa(int(style.SizeSevenXL)),
+			},
+			{
+				Label: "style.SizeEightXL",
+				Value: strconv.Itoa(int(style.SizeEightXL)),
+			},
+			{
+				Label: "style.SizeNineXL",
+				Value: strconv.Itoa(int(style.SizeNineXL)),
+			},
+			{
+				Label: "style.SizeFull",
+				Value: strconv.Itoa(int(style.SizeFull)),
+			},
+		},
 	})
 	@input.C(input.D{
 		Name:  "Label",
@@ -26,6 +112,11 @@ templ SelectfieldForm() {
 	@input.C(input.D{
 		Name:  "Selected",
 		Label: "Selected",
+	})
+	@checkbox.C(checkbox.D{
+		Name:  "Disabled",
+		Label: "Disabled",
+		Value: "true",
 	})
 	@selectfield.C(selectfield.D{
 		Name:  "Size",
@@ -100,11 +191,15 @@ templ SelectfieldForm() {
 
 templ SelectfieldSection() {
 	@ComponentViewer(Component{
-		ID:   "Selectfield",
-		Form: SelectfieldForm(),
-		Viewer: SelectfieldViewer(selectfield.D{
+		ID:      "Selectfield",
+		Package: "selectfield",
+		Form:    SelectfieldForm(),
+		Preview: selectfield.C(selectfield.D{
+			ID:      "selectfield",
+			Name:    "selectfield",
 			Label:   "Label",
 			Options: []option.D{{Label: "Select a value"}, {Label: "Option 1"}, {Label: "Option 2"}},
+			Message: &message.D{Message: "Validation message"},
 		}),
 	})
 }

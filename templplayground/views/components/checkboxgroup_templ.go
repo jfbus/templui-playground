@@ -11,14 +11,16 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
+	"github.com/jfbus/templui/components/checkbox"
+	"github.com/jfbus/templui/components/checkboxgroup"
+	"github.com/jfbus/templui/components/form/validation/message"
+	"github.com/jfbus/templui/components/input"
 	"github.com/jfbus/templui/components/selectfield"
 	"github.com/jfbus/templui/components/selectfield/option"
-	"github.com/jfbus/templui/components/table"
-	"github.com/jfbus/templui/components/table/row"
 	"strconv"
 )
 
-func TableForm() templ.Component {
+func CheckboxgroupForm() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -39,6 +41,14 @@ func TableForm() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
+		templ_7745c5c3_Err = input.C(input.D{
+			Name:  "Name",
+			Label: "Name",
+			Value: "checkboxgroup",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
 		templ_7745c5c3_Err = selectfield.C(selectfield.D{
 			Name:  "Style",
 			Label: "Style",
@@ -47,16 +57,24 @@ func TableForm() templ.Component {
 					Label: "Select a value",
 				},
 				{
-					Label: "table.StyleStripedRows",
-					Value: strconv.Itoa(int(table.StyleStripedRows)),
+					Label: "checkboxgroup.StyleHorizontal",
+					Value: strconv.Itoa(int(checkboxgroup.StyleHorizontal)),
 				},
 				{
-					Label: "table.StyleNoBorder",
-					Value: strconv.Itoa(int(table.StyleNoBorder)),
+					Label: "checkboxgroup.StyleBordered",
+					Value: strconv.Itoa(int(checkboxgroup.StyleBordered)),
 				},
 				{
-					Label: "table.StyleAddHighlightHover",
-					Value: strconv.Itoa(int(table.StyleAddHighlightHover)),
+					Label: "checkboxgroup.StyleGrouped",
+					Value: strconv.Itoa(int(checkboxgroup.StyleGrouped)),
+				},
+				{
+					Label: "checkboxgroup.StyleGroupedHorizontal",
+					Value: strconv.Itoa(int(checkboxgroup.StyleGroupedHorizontal)),
+				},
+				{
+					Label: "checkboxgroup.StyleLabelOnly",
+					Value: strconv.Itoa(int(checkboxgroup.StyleLabelOnly)),
 				},
 			},
 		}).Render(ctx, templ_7745c5c3_Buffer)
@@ -67,7 +85,7 @@ func TableForm() templ.Component {
 	})
 }
 
-func TableSection() templ.Component {
+func CheckboxgroupSection() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -89,12 +107,13 @@ func TableSection() templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		templ_7745c5c3_Err = ComponentViewer(Component{
-			ID:      "Table",
-			Package: "table",
-			Form:    TableForm(),
-			Preview: table.C(table.D{
-				Header: &row.D{Cells: []string{"Name", "Description", ""}},
-				Rows:   []row.D{{Cells: []string{"Lorem", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.", ""}}, {Cells: []string{"Ipsum", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.", ""}}, {Cells: []string{"Dolor", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.", ""}}},
+			ID:      "Checkboxgroup",
+			Package: "checkboxgroup",
+			Form:    CheckboxgroupForm(),
+			Preview: checkboxgroup.C(checkboxgroup.D{
+				Name:       "checkboxgroup",
+				Checkboxes: []checkbox.D{{Name: "foo", Value: "1", Label: "Choice 1"}, {Name: "foo", Value: "2", Label: "Choice 2"}},
+				Message:    &message.D{Message: "Validation message"},
 			}),
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
