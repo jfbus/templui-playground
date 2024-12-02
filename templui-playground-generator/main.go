@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/jfbus/templui-playground/templplaygroundgenerator/generator"
+	"github.com/jfbus/templui-playground/templui-playground-generator/generator"
 )
 
 func main() {
